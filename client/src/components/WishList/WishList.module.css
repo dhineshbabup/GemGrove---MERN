@@ -1,0 +1,67 @@
+.wishlist {
+  width: 90vw;
+  min-height: 100vh;
+  margin: 0 auto;
+  margin-top: 120px;
+}
+.wishlist-head h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.wishlist table {
+  width: 90vw;
+  font-size: 16px;
+  border-collapse: collapse;
+}
+.wishlist table th {
+  font-size: 18px;
+  font-weight: normal;
+  text-align: start;
+}
+.wishlist table td img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.wishlist table td {
+  min-width: 164px;
+}
+.wish-img {
+  display: flex;
+  align-items: center;
+}
+.wish-img p {
+  padding-left: 12px;
+}
+.wishlist table td {
+  margin: 8px 0 !important;
+}
+.wishlist td button {
+  cursor: pointer;
+  background: black;
+  color: white;
+  width: 150px;
+  height: 40px;
+  border-radius: 12px;
+}
+.mark {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 20px;
+}
+.wishlist-product {
+  width: 567px;
+}
+.wishlist table td span {
+  color: rgba(103, 205, 103, 0.702);
+  text-transform: capitalize;
+}
+.price {
+  font-weight: bold;
+}
+
+
+.wishlist table th,.wishlist table td,.wishlist table tr {
+  padding: 15px;
+}

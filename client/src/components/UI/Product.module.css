@@ -1,0 +1,229 @@
+.show-products {
+  width: 100vw;
+  min-height: 100vh;
+  width: 100px 0;
+}
+.show-product {
+  margin-top: 120px;
+  width: 100vw;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+.show-product-left {
+  width: 50vw;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 12px 0;
+}
+
+.image-container {
+  width: 200px;
+  height: 100%;
+}
+.image-container img {
+  margin: 6px;
+  cursor: pointer;
+  width: 100%;
+  height: 30%;
+  object-fit: cover;
+  transform: scale(0.96);
+  transition: border 0.5s, transform 0.5s;
+}
+.image-container img:hover {
+  border: 2px solid #ededed;
+  transform: scale(1);
+}
+/* Product right  */
+.show-product-right {
+  width: 50vw;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 25px;
+}
+.show-product-right h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 12px 0;
+}
+.button-count {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+.price p {
+  color: #c9002e;
+  font-weight: bold;
+  padding: 4px 16px;
+  font-size: 32px;
+}
+.price span {
+  text-decoration: line-through;
+  padding: 4px 0;
+  font-size: 18px;
+}
+.stock-reviews {
+  display: flex;
+  margin: 20px 0;
+}
+.reviews {
+  font-weight: normal;
+  padding-right: 15px;
+}
+.stock {
+  font-weight: normal;
+  padding-left: 20px;
+}
+.stock span {
+  color: #95da9b;
+}
+.button-count {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  margin: 12px 14px;
+}
+.count-button {
+  width: 22%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  font-size: 18px;
+  border: 1px solid gray;
+  border-radius: 80px;
+  padding: 0 16px;
+  margin-right: 16px;
+}
+.count-button button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+.card-button {
+  width: 75%;
+  height: 100%;
+}
+.card-button button {
+  width: 100%;
+  height: 100%;
+  border-radius: 80px;
+  background: #000;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid gray;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0 !important;
+}
+.buy-button {
+  width: 100%;
+  height: 50px;
+  margin: 12px auto;
+}
+.buy-button button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  color: #fff;
+  background-color: #c9002e;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.show-product-right hr {
+  width: 90%;
+  margin: 12px auto;
+  outline: none;
+  border: 1px solid #ededed;
+}
+.product-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin: 50px 0;
+  /* border-bottom: 2px solid black; */
+}
+.product-content h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out;
+}
+.product-content h2:hover {
+  color: rgb(214, 210, 210);
+}
+.product-contents {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.product-contents div p {
+  margin: 36px 0;
+  font-size: 14px;
+  text-transform: capitalize;
+  line-height: 25px;
+}
+.product-contents hr {
+  border: 1px solid gray;
+}
+.product-contents div li {
+  font-size: 14px;
+  list-style-type: square;
+  padding: 4px;
+  margin: 12px 0;
+}
+.product-contents table {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 18px auto;
+  border-collapse: collapse;
+}
+.product-contents table tr td:nth-child(1) {
+  font-weight: 500;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+.product-contents tr {
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+.product-contents td {
+  padding: 12px 14px;
+  font-size: 14px;
+}
+.product-contents th,
+.product-contents td,
+.product-contents th {
+  border: 2px solid rgba(235, 235, 235, 1);
+  text-align: left;
+}
+
+.product-contents th,
+.product-contents td {
+  padding: 15px;
+}
+
+.product-contents th {
+  font-weight: 600;
+}

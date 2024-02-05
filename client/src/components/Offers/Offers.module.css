@@ -1,0 +1,73 @@
+#offers {
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+}
+.offer-left {
+    width: 40vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer-right {
+    width: 60vw;
+    background: url('../../assets/necklaces1.jpeg') center/cover no-repeat;
+    position: relative;
+    height: 100%;
+}
+.offer-right div {
+    /* background: url('') center/cover no-repeat; */
+    background-color: white;
+    position: absolute;
+    width: 20vw;
+    height: 43vh;
+    display: flex;
+    right: 40px;
+    flex-direction: column;
+    top: 50px;
+    cursor: pointer;
+}
+/* C9002E */
+.offer-left div {
+    width: 30vw;
+    height: 40vh;
+    background: #C9002E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+}
+.offer-left div p {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+.offer-left div h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.offer-right img {
+    width: 20vw;
+    height: 25vh;
+}
+.offer-right h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #000;
+    margin: 10px 0;
+    font-weight: 600;
+}
+.offer-right p {
+    color: #C9002E;
+    font-size: 24px;
+    text-align: center;
+}
+.offer-right p span {
+    color: #000;
+    text-decoration: line-through;
+}
+.offer {
+    text-align: center;
+    margin: 10px 0;
+    color: #866528;
+}

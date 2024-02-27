@@ -4,6 +4,7 @@ import { VscClose } from "react-icons/vsc";
 import ShopContext from "../../context/Context";
 const WishList = () => {
   const { wishList, removeFromWishList, addToCart } = useContext(ShopContext);
+  
   return (
     <div className={classes["wishlist"]}>
       <div className={classes["wishlist-head"]}>
@@ -20,12 +21,12 @@ const WishList = () => {
             return (
               <tr>
                 <td className={classes["wish-img"]}>
-                  <img src={pr.image} alt="" />
+                  <img src={pr.img} alt="" />
                   <p>{pr.name}</p>
                 </td>
-                <td className={classes["price"]}>{pr.current_price}</td>
+                <td className={classes["price"]}>{pr.curr_price}</td>
                 <td>
-                  <span>{pr.stock}</span>
+                  <span>in stock</span>
                 </td>
                 <td>
                   <button

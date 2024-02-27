@@ -1,47 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import ShopContext from "../../context/Context";
 const Cart = () => {
-  const {
-    cartItems,
-    removeFromCart,
-    quantity,
-    decreaseQuantity,
-    increaseQuantity,
-  } = useContext(ShopContext);
+  const { cartItems, removeFromCart, setCartItems } = useContext(ShopContext);
   let price = 0;
-  let discount = 0;
+  let discount = Number(0);
   let total_price = 0;
   console.log(cartItems);
-  // const [quantity, setQuantity] = useState(1);
-
-  const calculateSubToatl = (qty, current_price) => {
-    price += qty * current_price;
-    return qty * current_price;
+  const increaseQuantity = (id, Newquantity) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: Newquantity } : item
+      )
+    );
   };
-  const calculateToatl = () => {
-    return price >= 10000 ? price : price + 49;
+  const calculateSubToatl = (quantity, price) => {
+    const sub = Number(price * quantity).toFixed(2);
+    total_price += Number(sub);
+    return sub;
   };
-  // const increaseQuantity = () => {
-  //   setQuantity((prev) => prev + 1);
-  // };
-  // const decreaseQuantity = () => {
-  //   setQuantity((prev) => {
-  //     console.log(prev);
-  //     if (prev > 1) {
-  //       return prev - 1;
-  //     }
-  //     return (prev = 1);
-  //   });
-  // };
-  // useState(() => {
+  const calculateTotal = (total, del) => {
+    return (total + del).toFixed(2);
+  };
 
-  // },[quantity])
+  const calculateDiscount = (old_price, curr_price) => {
+    if (!old_price || !curr_price) return;
+    discount = Number(old_price - curr_price);
+  };
   return (
     <div className={classes["cart"]}>
-      {/* <img src={shop} alt="" /> */}
       <div className={classes["cart-left"]}>
         <h2>Shopping cart</h2>
         <div className={classes["cart-left-table"]}>
@@ -58,25 +47,35 @@ const Cart = () => {
             {cartItems && (
               <tbody>
                 {cartItems.map((p) => {
+                  calculateDiscount(p.old_price, p.curr_price);
                   if (p.old_price) {
-                    discount += p.old_price - p.current_price;
-                    total_price += p.old_price;
-                  } else {
-                    total_price += p.current_price;
+                    discount += p.old_price - p.curr_price;
                   }
                   return (
-                    <tr key={p._id}>
+                    <tr key={p.id}>
                       <td>
-                        <img src={p.image} alt="" />
+                        <img src={p.img} alt="" />
                       </td>
                       <td>{p.name}</td>
-                      <td>{p.current_price}</td>
+                      <td>{p.curr_price}</td>
                       <td>
-                        <button onClick={decreaseQuantity}>-</button>
+                        <button
+                          onClick={() =>
+                            p.quantity === 1
+                              ? 1
+                              : increaseQuantity(p.id, p.quantity - 1)
+                          }
+                        >
+                          -
+                        </button>
                         {p.quantity}
-                        <button onClick={increaseQuantity}>+</button>
+                        <button
+                          onClick={() => increaseQuantity(p.id, p.quantity + 1)}
+                        >
+                          +
+                        </button>
                       </td>
-                      <td>{calculateSubToatl(quantity, p.current_price)}</td>
+                      <td>{calculateSubToatl(p.quantity, p.curr_price)}</td>
                       <td onClick={() => removeFromCart(p.id)}>
                         <VscClose className={classes["mark"]} />
                       </td>
@@ -92,24 +91,23 @@ const Cart = () => {
         <div className={classes["cart-right-order"]}>
           <p>Order details</p>
           <div>
-            <h2>Bag Total</h2>
-            <h2 className={classes["total"]}>{price}</h2>
-          </div>
-          <div>
             <h2>Total Product Price</h2>
-            <h2>{total_price}</h2>
+            <h2>{total_price.toFixed(2)}</h2>
           </div>
           <div>
             <h2>Discount</h2>
-            <h2 className={classes["discount"]}>{discount}</h2>
+            <h2 className={classes["discount"]}>{discount.toFixed(2)}</h2>
           </div>
           <div>
             <h2>Delivery Fee</h2>
-            <h2>49</h2>
+            <h2>{price >= 1000 ? "Free" : 49}</h2>
           </div>
           <div>
             <h2>Order Total</h2>
-            <h2>{calculateToatl()}</h2>
+            <h2>
+              {" "}
+              &#8377; {calculateTotal(total_price, price >= 1000 ? 49 : 0)}
+            </h2>
           </div>
           <button>Buy Now</button>
         </div>

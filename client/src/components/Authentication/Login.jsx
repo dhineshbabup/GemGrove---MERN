@@ -13,19 +13,23 @@ const Login = ({ img }) => {
   const loginFormHandler = () => {
     if (loginForm.emailErr === true) {
       dispatchLogin({ type: "EMAIL_ERROR", field: "emailErrMsg" });
+      return;
     } else {
       dispatchLogin({ type: "ERROR_FIX", field: "emailErrMsg" });
     }
     if (loginForm.passErr === true) {
       dispatchLogin({ type: "PASSWORD_ERROR", field: "passErrMsg" });
+      return;
     } else {
       dispatchLogin({ type: "ERROR_FIX", field: "passErrMsg" });
     }
     if (loginForm.email.length === 0) {
       dispatchLogin({ type: "FIELD_ERR", field: "emailErrMsg" });
+      return;
     }
     if (loginForm.password.length === 0) {
       dispatchLogin({ type: "FIELD_ERR", field: "passErrMsg" });
+      return;
     }
   };
   return (

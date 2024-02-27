@@ -1,65 +1,137 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./Product.module.css";
-import b1 from "../../assets/new_arrivals/bracelet-1.jpeg";
-import b2 from "../../assets/new_arrivals/bracelet-2.jpeg";
-import e1 from "../../assets/new_arrivals/earing-1.jpeg";
-import new_arrival from "../../assets/new_arrival";
 import { useParams, useNavigate } from "react-router";
 import ShopContext from "../../context/Context";
 import ProductDescription from "./ProductDescription";
-const Product = (props) => {
+import axios from "axios";
+import ColorChooser from "../../Pages/ColorChooser";
+const Product = () => {
   const { productId } = useParams();
-
-  const { quantity, decreaseQuantity, increaseQuantity, addToCart } =
-    useContext(ShopContext);
+  const { addToCart } = useContext(ShopContext);
   const navigate = useNavigate();
-  let product = new_arrival.find((e) => e.id === productId);
-  const [image, setImage] = useState(product.image);
+  const [product, setProduct] = useState([]);
+  const [image, setImage] = useState("");
   const setImageHandler = (img) => {
     setImage(img);
   };
-  product = { ...product, quantity: 10 };
+  const [quantity, setQuantity] = useState(1);
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+  const decreaseQuantity = () => {
+    setQuantity((prev) => {
+      console.log(prev);
+      if (prev > 1) {
+        return prev - 1;
+      }
+      return (prev = 1);
+    });
+  };
+  const cartProduct = (product) => {
+    console.log(product);
+    product = {
+      ...product,
+      quantity: quantity,
+    };
+    addToCart(product);
+  };
+  const addCart = (p) => {
+    const pr = {
+      id: p._id,
+      offer: p.offer,
+      tag: p.tags,
+      img: p.images[0].img1,
+      old_price: p.old_price,
+      curr_price: p.curr_price,
+      name: p.name,
+      quantity: 1,
+    };
+    addToCart(pr);
+  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/user/getproduct/${productId}`
+        );
+        setImage(res.data.images[0].img1);
+        setProduct(res.data);
+      } catch (err) {
+        console.log("fetching error" + err);
+      }
+    };
+    fetchProducts();
+  }, []);
+  console.log(product);
   return (
     <div className={classes["show-products"]}>
       <div className={classes["breadcrum"]}></div>
       <div className={classes["show-product"]}>
-        <div className={classes["show-product-left"]}>
-          <div className={classes["image-container"]}>
-            <img
-              src={b1}
-              alt=""
-              onMouseEnter={() => setImageHandler(b1)}
-              onMouseLeave={() => setImageHandler(product.image)}
-            />
-            <img
-              src={b2}
-              alt=""
-              onMouseEnter={() => setImageHandler(b2)}
-              onMouseLeave={() => setImageHandler(product.image)}
-            />
-            <img
-              src={e1}
-              alt=""
-              onMouseEnter={() => setImageHandler(e1)}
-              onMouseLeave={() => setImageHandler(product.image)}
-            />
+        {product.length !== 0 ? (
+          <div className={classes["show-product-left"]}>
+            <div className={classes["image-container"]}>
+              {product.images[0].img2.length > 1 ? (
+                <img
+                  src={product.images[0].img2}
+                  alt=""
+                  onMouseEnter={() => setImageHandler(product.images[0].img2)}
+                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                />
+              ) : (
+                ""
+              )}
+              {product.images[0].img3.length > 1 ? (
+                <img
+                  src={product.images[0].img3}
+                  alt=""
+                  onMouseEnter={() => setImageHandler(product.images[0].img3)}
+                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                />
+              ) : (
+                ""
+              )}
+              {product.images[0].img4.length > 1 ? (
+                <img
+                  src={product.images[0].img4}
+                  alt=""
+                  onMouseEnter={() => setImageHandler(product.images[0].img4)}
+                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+            <div className={classes["product-image"]}>
+              <img
+                src={image}
+                alt="drive image"
+                style={{
+                  width: "400px",
+                  height: "400px",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
           </div>
-          <div className={classes["product-image"]}>
-            <img src={image} alt="" />
-          </div>
-        </div>
+        ) : (
+          "loading"
+        )}
         <div className={classes["show-product-right"]}>
           <h2>{product.name}</h2>
           <div className={classes["stock-reviews"]}>
             <p className={classes.reviews}>Reviews({product.reviews})</p>
             <p className={classes.stock}>
-              Stock: <span>{product.stock}</span>
+              Stock:
+              <span>
+                {product.stock === true ? "in Stock" : "Not available"}
+              </span>
             </p>
           </div>
           <div className={classes.price}>
-            <p>&#8377;{product.current_price}</p>
+            <p>&#8377;{product.curr_price}</p>
             {product.old_price ? <span>&#8377; {product.old_price}</span> : ""}
           </div>
+          {product.color ? <ColorChooser colors={product.color} /> : ""}
           <div className={classes["button-count"]}>
             <div className={classes["count-button"]}>
               <button onClick={decreaseQuantity}>-</button>
@@ -67,13 +139,13 @@ const Product = (props) => {
               <button onClick={increaseQuantity}>+</button>
             </div>
             <div className={classes["card-button"]}>
-              <button>Add to cart</button>
+              <button onClick={() => addCart(product)}>Add to cart</button>
             </div>
           </div>
           <div className={classes["buy-button"]}>
             <button
               onClick={() => {
-                addToCart(product);
+                addCart(product);
                 navigate("/cart");
               }}
             >

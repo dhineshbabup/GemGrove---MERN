@@ -6,7 +6,8 @@ import Product from "./components/UI/Product";
 import Cart from "./components/cart/Cart";
 import WishList from "./components/WishList/WishList";
 import LoginSignup from "./components/Authentication/LoginSignup";
-import Footer from "./components/Footer/Footer"
+import Footer from "./components/Footer/Footer";
+import ShowProduct from "./Pages/ShowProduct";
 function App() {
   return (
     <BrowserRouter>
@@ -16,12 +17,14 @@ function App() {
         <Route path="/product" element={<Product />}>
           <Route path=":productId" element={<Product />} />
         </Route>
+        <Route path="/showproduct" element={<ShowProduct />}>
+          <Route path="/showproduct/:category" element={<ShowProduct />} />
+        </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/login" element={<LoginSignup />} />
-
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

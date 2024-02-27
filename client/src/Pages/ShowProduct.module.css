@@ -1,0 +1,26 @@
+.show-products {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 200px;
+}
+.show-product {
+  margin: 0 auto;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.details {
+  margin: 0 auto;
+  display: flex;
+  width: 80vw;
+  align-items: center;
+  justify-content: space-between;
+}
+.details h2 {
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: capitalize;
+}

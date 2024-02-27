@@ -6,7 +6,7 @@ const NewArrival = () => {
   return (
     <div className={classes.new}>
       <h2>New Arrival</h2>
-      <div className={classes.con}>
+      <div className={classes.con} key={"12"}>
         {new_arrival.map((s) => {
           return (
             <ProductDisplay

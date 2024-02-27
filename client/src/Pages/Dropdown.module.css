@@ -1,0 +1,29 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-select {
+  appearance: none;
+  padding: 10px 30px 10px 15px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.dropdown-select::after {
+  content: "\25BC";
+  color: #333;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+.dropdown:focus-within {
+  display: block;
+}

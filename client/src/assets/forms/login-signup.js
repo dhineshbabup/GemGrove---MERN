@@ -21,7 +21,7 @@ export const loginFormReducer = (state, action) => {
           emailErr: false,
         };
       } else {
-        return { ...state,[field] : payload, emailErr: true };
+        return { ...state, [field]: payload, emailErr: true };
       }
     case "PASSWORD":
       if (passwordRegex.test(payload)) {
@@ -36,7 +36,6 @@ export const loginFormReducer = (state, action) => {
     case "FIELD_ERR":
       return { ...state, [field]: "Field Can't be empty." };
     case "EMAIL_ERROR":
-      console.log("12");
       return {
         ...state,
         [field]: "Invalid Email",
@@ -110,5 +109,7 @@ export const signupFormReducer = (state, action) => {
       };
     case "FIELD_ERR":
       return { ...state, [field]: "Field Can't be empty." };
+    case "ERROR_FIX":
+      return { ...state, [field]: "" };
   }
 };

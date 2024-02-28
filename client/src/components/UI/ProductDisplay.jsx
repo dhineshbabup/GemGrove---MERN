@@ -2,11 +2,12 @@ import React, { useState, useContext } from "react";
 import classes from "./ProductDisplay.module.css";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { FiHeart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShopContext from "../../context/Context";
-
+import Cookie from "js-cookie";
 const ProductDisplay = (props) => {
   const { addToCart, addToWishList } = useContext(ShopContext);
+  const navigate = useNavigate();
   const addWish = (p) => {
     console.log(p);
     const pr = {
@@ -21,14 +22,19 @@ const ProductDisplay = (props) => {
     };
     addToWishList(pr);
   };
-  console.log(props);
+  const token = localStorage.getItem('token')
   return (
     <div className={classes.products} key={props.id}>
       <div className={classes.product} key={props.id}>
         <Link to={`/product/${props.id}`}>
           <img src={props.img} alt="drive" />
         </Link>
-        <button className={classes.button} onClick={() => addToCart(props)}>
+        <button
+          className={classes.button}
+          onClick={() =>
+            token ? addToCart(props) : navigate("/login")
+          }
+        >
           Add to cart
         </button>
         <div className={classes.off}>
@@ -36,7 +42,10 @@ const ProductDisplay = (props) => {
           {props.offer ? <span>{props.offer}</span> : ""}
         </div>
         <div className={classes.left}>
-          <FiHeart onClick={() => addToWishList(props)} className={classes.icons} />
+          <FiHeart
+            onClick={() => addToWishList(props)}
+            className={classes.icons}
+          />
           <RiShoppingCartLine className={classes.icons} />
         </div>
       </div>

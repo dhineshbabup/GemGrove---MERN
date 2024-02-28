@@ -1,15 +1,17 @@
 import React, { useReducer, useRef, useState } from "react";
 import classes from "./LoginSignup.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   loginFormReducer,
   initialLoginForm,
 } from "../../assets/forms/login-signup";
+import axios from "axios";
 const Login = ({ img }) => {
   const [loginForm, dispatchLogin] = useReducer(
     loginFormReducer,
     initialLoginForm
   );
+  const navigate = useNavigate();
   const loginFormHandler = () => {
     if (loginForm.emailErr === true) {
       dispatchLogin({ type: "EMAIL_ERROR", field: "emailErrMsg" });
@@ -31,10 +33,25 @@ const Login = ({ img }) => {
       dispatchLogin({ type: "FIELD_ERR", field: "passErrMsg" });
       return;
     }
+    submitHandler();
+  };
+  const submitHandler = async () => {
+    const response = await axios.post("http://localhost:8000/login", {
+      email: loginForm.email,
+      password: loginForm.password,
+    });
+    console.log(response);
+    if (response.data.status) {
+      localStorage.setItem("token", [response.data.token, response.data.email]);
+      if (response.data.role === true) {
+      } else {
+        navigate("/");
+      }
+    }
   };
   return (
     <div className={classes["login"]}>
-      <img src="" alt="ddsds" />
+      <img src="" alt="logo" />
       <h2>Login</h2>
       <div>
         <input

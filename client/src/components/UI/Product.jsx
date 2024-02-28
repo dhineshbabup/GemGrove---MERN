@@ -5,6 +5,7 @@ import ShopContext from "../../context/Context";
 import ProductDescription from "./ProductDescription";
 import axios from "axios";
 import ColorChooser from "../../Pages/ColorChooser";
+import Cookies from "js-cookie";
 const Product = () => {
   const { productId } = useParams();
   const { addToCart } = useContext(ShopContext);
@@ -139,14 +140,19 @@ const Product = () => {
               <button onClick={increaseQuantity}>+</button>
             </div>
             <div className={classes["card-button"]}>
-              <button onClick={() => addCart(product)}>Add to cart</button>
+              <button
+                onClick={() =>
+                  Cookies.get("token") ? addToCart(product) : navigate("/login")
+                }
+              >
+                Add to cart
+              </button>
             </div>
           </div>
           <div className={classes["buy-button"]}>
             <button
               onClick={() => {
-                addCart(product);
-                navigate("/cart");
+                Cookies.get("token") ? addCart(product) : navigate("/login");
               }}
             >
               Buy Now

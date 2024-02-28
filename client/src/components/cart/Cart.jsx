@@ -32,6 +32,7 @@ const Cart = () => {
   return (
     <div className={classes["cart"]}>
       <div className={classes["cart-left"]}>
+        
         <h2>Shopping cart</h2>
         <div className={classes["cart-left-table"]}>
           <table>

@@ -5,9 +5,12 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { FiHeart } from "react-icons/fi";
 import { RiMenu2Fill } from "react-icons/ri";
 import ShopContext from "../../context/Context";
+import { BsPersonFill } from "react-icons/bs";
+
 const Navbar = () => {
   const [showNavabr, setShowNavbar] = useState(false);
-  const {cartItemsLength} = useContext(ShopContext)
+  const { cartItemsLength } = useContext(ShopContext);
+  const user = localStorage.getItem("token");
   return (
     <div className={classes.navbar}>
       <div className={classes["desktop-navbar"]}>
@@ -29,11 +32,24 @@ const Navbar = () => {
         <div className={classes["nav-items"]}>
           <input type="text" placeholder="Search" />
           <div className={classes["nav-item-icon"]}>
-            <Link to="/wishlist"><FiHeart className={classes["nav-item"]} /></Link>
+            <Link to="/wishlist">
+              <FiHeart className={classes["nav-item"]} />
+            </Link>
           </div>
           <div className={classes["nav-item-icon"]}>
-            <Link to="/cart"><RiShoppingCartLine className={classes["nav-item"]} /></Link>
+            <Link to="/cart">
+              <RiShoppingCartLine className={classes["nav-item"]} />
+            </Link>
             <div className={classes.patch}>{cartItemsLength}</div>
+          </div>
+          <div className={classes["nav-item-icon"]}>
+            {user ?
+            <Link to="/profile">
+              <BsPersonFill className={classes["nav-item"]} />
+            </Link>
+            :
+            <Link to="/login"><button className={classes['login-button']}>Login</button></Link>
+            }
           </div>
         </div>
       </div>

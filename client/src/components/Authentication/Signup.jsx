@@ -5,30 +5,30 @@ import {
   initialSignupForm,
   signupFormReducer,
 } from "../../assets/forms/login-signup";
+import axios from "axios";
 
 const Signup = ({ img }) => {
   const [signupForm, dispatchSignup] = useReducer(
     signupFormReducer,
     initialSignupForm
   );
-
   const signupFormHandler = () => {
-    console.log(signupForm.name.length);
-    if (signupForm.name.length === 0) {
-      dispatchSignup({ type: "FIELD_ERR", field: "nameErr" });
-    }
-    if (signupForm.username.length === 0) {
-      dispatchSignup({ type: "FIELD_ERR", field: "usernameErr" });
-    }
-    if (signupForm.email.length === 0) {
-      dispatchSignup({ type: "FIELD_ERR", field: "emailErr" });
-    }
+    
     if (signupForm.password.length === 0) {
       dispatchSignup({ type: "FIELD_ERR", field: "passwordErr" });
     }
     if (signupForm.confirm_password.length === 0) {
       dispatchSignup({ type: "FIELD_ERR", field: "confirm_passwordErr" });
     }
+    submitHandler();
+  };
+  const submitHandler = async () => {
+    const response = await axios.post("http://localhost:8000/signup", {
+      name: signupForm.name,
+      email: signupForm.email,
+      password: signupForm.password,
+    });
+    console.log(response);
   };
   return (
     <div className={classes["signup"]}>
@@ -46,6 +46,14 @@ const Signup = ({ img }) => {
               payload: e.target.value,
             });
           }}
+          onBlur={() => {
+            if (!signupForm.name) {
+              dispatchSignup({ type: "FIELD_ERR", field: "nameErr" });
+            }
+            else {
+              dispatchSignup({type: "ERROR_FIX", field:"nameErr"})
+            }
+          }}
           name="name"
           type="text"
           placeholder="Enter your Name"
@@ -59,30 +67,7 @@ const Signup = ({ img }) => {
         >
           {signupForm.nameErr}*
         </span>
-        <input
-          className={
-            signupForm.usernameErr ? classes["input-error"] : classes["input"]
-          }
-          onChange={(e) => {
-            dispatchSignup({
-              type: "USERNAME",
-              field: e.target.name,
-              payload: e.target.value,
-            });
-          }}
-          type="text"
-          name="username"
-          placeholder="Enter username"
-        />
-        <span
-          style={
-            signupForm.usernameErr
-              ? { visibility: "visible" }
-              : { visibility: "hidden" }
-          }
-        >
-          {signupForm.usernameErr}*
-        </span>
+
         <input
           className={
             signupForm.emailErr ? classes["input-error"] : classes["input"]
@@ -93,6 +78,14 @@ const Signup = ({ img }) => {
               field: e.target.name,
               payload: e.target.value,
             });
+          }}
+          onBlur={() => {
+            if (!signupForm.email) {
+              dispatchSignup({ type: "FIELD_ERR", field: "emailErr" });
+            }
+            else {
+              dispatchSignup({type: "ERROR_FIX", field:"emailErr"})
+            }
           }}
           name="email"
           type="email"

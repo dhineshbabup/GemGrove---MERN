@@ -19,6 +19,10 @@ const user = new mongoose.Schema({
     maxlength: 10,
     trim: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   address: [
     {
       name: String,
@@ -28,14 +32,17 @@ const user = new mongoose.Schema({
       pincode: Number,
       city: String,
       state: String,
+      place: String,
     },
   ],
-  orders: {
-    orderId: String,
-    orderDate: Date,
-    order_status: String,
-    product_id: String,
-  },
+  orders: [
+    {
+      orderId: String,
+      orderDate: Date,
+      order_status: String,
+      product_id: String,
+    },
+  ],
 });
 
 const User = mongoose.model("User", user);

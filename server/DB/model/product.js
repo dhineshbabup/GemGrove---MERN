@@ -3,18 +3,23 @@ const mongoose = require("mongoose");
 const productSchema = mongoose.Schema({
   name: String,
   category: String,
-  current_price: Number,
+  curr_price: Number,
   old_price: Number,
-  stocks: Boolean,
-  reviews: String,
-  images: [
-    {
-      image1: String,
-      image2: String,
-      image3: String,
-      image4: String,
-    },
-  ],
+  stocks: {
+    type: Boolean,
+    default: true,
+  },
+  reviews: {
+    type: Number,
+    default: 0,
+  },
+  images: {
+    img1: String,
+    img2: String,
+    img3: String,
+    img4: String,
+  },
+
   offer: String,
   tag: String,
 });

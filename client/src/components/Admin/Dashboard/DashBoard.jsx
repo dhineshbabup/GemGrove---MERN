@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classes from "./DashBoard.module.css";
 import FetchProduct from "../DisplayProducts/FetchProduct";
+import AddProduct from "../AddProduct";
 const DashBoard = () => {
   const [adminControl, setAdminControl] = useState("dash");
   function handleAdminControl(dash) {
@@ -26,6 +27,8 @@ const DashBoard = () => {
           <FetchProduct isEdit={false} />
         ) : adminControl === "edit-product" ? (
           <FetchProduct isEdit={true} />
+        ) : adminControl === "add-product" ? (
+          <AddProduct />
         ) : (
           ""
         )}

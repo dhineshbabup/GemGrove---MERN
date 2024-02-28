@@ -31,9 +31,9 @@ function App() {
         {/* <Footer /> */}
       </>
       <>
-      <Routes>
-        <Route path="/dashboard" element={<DashBoard />} />
-      </Routes>
+        <Routes>
+          <Route path="/dashboard" element={<DashBoard />} />
+        </Routes>
       </>
     </BrowserRouter>
   );

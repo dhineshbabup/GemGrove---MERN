@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DisplayProducts from "./DisplayProducts";
 import classes from "./DisplayProducts.module.css";
 import axios from "axios";
 const FetchProduct = ({ isEdit }) => {
   const [products, setProducts] = useState([]);
-  useState(async () => {
-    const response = await axios.get("http://localhost:8000/admin/getProducts");
-    setProducts(response.data);
-  });
-
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        "http://localhost:8000/admin/getProducts"
+      );
+      setProducts(response.data);
+    };
+    fetchData();
+  }, [products]);
   return (
     <div className={classes["fetch-product"]}>
       {products.map((product) => {
@@ -16,7 +20,7 @@ const FetchProduct = ({ isEdit }) => {
           <DisplayProducts
             key={product._id}
             _id={product._id}
-            img={product.images[0].img1}
+            img={product.images.img1}
             name={product.name}
             price={product.curr_price}
             isEdit={isEdit}

@@ -64,7 +64,7 @@ const ShowProduct = (props) => {
                   id={s._id}
                   offer={s.offer}
                   tag={s.tag}
-                  img={s.images[0].img1}
+                  img={s.images.img1}
                   old_price={s.old_price}
                   curr_price={s.curr_price}
                   name={s.name}

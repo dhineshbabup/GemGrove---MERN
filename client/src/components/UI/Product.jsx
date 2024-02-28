@@ -55,7 +55,7 @@ const Product = () => {
         const res = await axios.get(
           `http://localhost:8000/user/getproduct/${productId}`
         );
-        setImage(res.data.images[0].img1);
+        setImage(res.data.images.img1);
         setProduct(res.data);
       } catch (err) {
         console.log("fetching error" + err);
@@ -63,7 +63,6 @@ const Product = () => {
     };
     fetchProducts();
   }, []);
-  console.log(product);
   return (
     <div className={classes["show-products"]}>
       <div className={classes["breadcrum"]}></div>
@@ -71,32 +70,32 @@ const Product = () => {
         {product.length !== 0 ? (
           <div className={classes["show-product-left"]}>
             <div className={classes["image-container"]}>
-              {product.images[0].img2.length > 1 ? (
+              {product.images.img2.length > 1 ? (
                 <img
-                  src={product.images[0].img2}
+                  src={product.images.img2}
                   alt=""
-                  onMouseEnter={() => setImageHandler(product.images[0].img2)}
-                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                  onMouseEnter={() => setImageHandler(product.images.img2)}
+                  onMouseLeave={() => setImageHandler(product.images.img1)}
                 />
               ) : (
                 ""
               )}
-              {product.images[0].img3.length > 1 ? (
+              {product.images.img3.length > 1 ? (
                 <img
-                  src={product.images[0].img3}
+                  src={product.images.img3}
                   alt=""
-                  onMouseEnter={() => setImageHandler(product.images[0].img3)}
-                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                  onMouseEnter={() => setImageHandler(product.images.img3)}
+                  onMouseLeave={() => setImageHandler(product.images.img1)}
                 />
               ) : (
                 ""
               )}
-              {product.images[0].img4.length > 1 ? (
+              {product.images.img4.length > 1 ? (
                 <img
-                  src={product.images[0].img4}
+                  src={product.images.img4}
                   alt=""
-                  onMouseEnter={() => setImageHandler(product.images[0].img4)}
-                  onMouseLeave={() => setImageHandler(product.images[0].img1)}
+                  onMouseEnter={() => setImageHandler(product.images.img4)}
+                  onMouseLeave={() => setImageHandler(product.images.img1)}
                 />
               ) : (
                 ""

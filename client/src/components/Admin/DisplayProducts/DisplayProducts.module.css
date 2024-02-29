@@ -35,3 +35,8 @@
   margin: 4px 8px;
   cursor: pointer;
 }
+
+.cancel {
+  background: lightblue !important;
+  color: white !important;
+}

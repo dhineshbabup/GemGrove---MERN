@@ -29,13 +29,13 @@ const ShowProduct = (props) => {
     const sort = () => {
       switch (sortBy) {
         case "Low to High":
-          const ascSortedProducts = showProduct.sort(
+          const ascSortedProducts = [...showProduct].sort(
             (a, b) => a.curr_price - b.curr_price
           );
           setShowProduct(ascSortedProducts);
           return;
         case "High to Low":
-          const desSortedProducts = showProduct.sort(
+          const desSortedProducts = [...showProduct].sort(
             (a, b) => b.curr_price - a.curr_price
           );
           setShowProduct(desSortedProducts);

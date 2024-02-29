@@ -6,6 +6,7 @@ import {
   initialLoginForm,
 } from "../../assets/forms/login-signup";
 import axios from "axios";
+import logo from "../../assets/sample.png"
 const Login = ({ img }) => {
   const [loginForm, dispatchLogin] = useReducer(
     loginFormReducer,
@@ -51,7 +52,7 @@ const Login = ({ img }) => {
   };
   return (
     <div className={classes["login"]}>
-      <img src="" alt="logo" />
+      <img src={logo} alt="logo" className={classes['login-logo']}/>
       <h2>Login</h2>
       <div>
         <input
@@ -103,7 +104,7 @@ const Login = ({ img }) => {
           {loginForm.passErrMsg}*
         </span>
       </div>
-      <button onClick={loginFormHandler}>Login</button>
+      <button className={classes['button']} onClick={loginFormHandler}>Login</button>
       <Link className={classes["forgot"]}>Forgot password ?</Link>
       <p
         onClick={() => {

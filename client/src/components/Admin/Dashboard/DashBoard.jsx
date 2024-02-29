@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import classes from "./DashBoard.module.css";
 import FetchProduct from "../DisplayProducts/FetchProduct";
-import AddProduct from "../AddProduct";
+import AddProduct from "../AddProduct/AddProduct";
+import Button from "../../UI/Button";
 const DashBoard = () => {
   const [adminControl, setAdminControl] = useState("dash");
   function handleAdminControl(dash) {
@@ -11,16 +12,34 @@ const DashBoard = () => {
     <div className={classes["dashboard"]}>
       <div className={classes["dashboard-right"]}>
         <h2>Hello Admin,</h2>
-        <p onClick={() => handleAdminControl("show-products")}>Show Products</p>
-        <p onClick={() => handleAdminControl("add-product")}>Add Product</p>
-        <p onClick={() => handleAdminControl("edit-product")}>Edit Product</p>
+        <p
+          className={classes["dash-para"]}
+          onClick={() => handleAdminControl("show-products")}
+        >
+          Show Products
+        </p>
+        <p
+          className={classes["dash-para"]}
+          onClick={() => handleAdminControl("add-product")}
+        >
+          Add Product
+        </p>
+        <p
+          className={classes["dash-para"]}
+          onClick={() => handleAdminControl("edit-product")}
+        >
+          Edit Product
+        </p>
       </div>
       <div className={classes["dashboard-left"]}>
         <>
           <h2>Welcome Back</h2>
-          <button onClick={() => handleAdminControl("show-products")}>
+          <Button
+            style={classes["dashboard-left-button"]}
+            handleFunction={() => handleAdminControl("show-products")}
+          >
             List All Products
-          </button>
+          </Button>
           <hr />
         </>
         {adminControl === "show-products" ? (

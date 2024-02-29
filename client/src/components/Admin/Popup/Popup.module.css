@@ -1,17 +1,20 @@
 .popup-backdrop {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   display: flex;
+  top: 0;
+  left: 0;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.48);
+  z-index: 999;
 }
 .popup {
   width: 40%;
   min-height: 30%;
   padding: 12px;
-  background: #f7f7f7;
+  background: white;
   color: black;
   display: flex;
   flex-direction: column;
@@ -25,20 +28,6 @@
   font-weight: 400;
   color: #c9002e;
 }
-/* .popup-button {
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  padding: 8px 12px;
-}
-.popup-confirm {
-  background: #c9002e;
-  color: #f7f7f7;
-}
-.popup-button:hover {
-  opacity: 0.9;
-}
- */
 .popup div {
   width: 100%;
   display: flex;
@@ -51,7 +40,52 @@
 .popup div button:hover {
   opacity: 0.9;
 }
-.cancel {
-  background: lightblue !important;
-  color: white !important;
+/* dialog {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+dialog form {
+  background: red;
+}*/
+
+.result-modal {
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.result-modal[open] {
+  animation: slide-in-from-top 0.35s ease-out;
+}
+
+.result-modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.result-modal p {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.result-modal-button {
+  margin: 1rem 0 0 0 !important;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #c9002e !important;
+  color: #edfcfa;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

@@ -19,11 +19,36 @@ exports.deleteProduct = async (req, res) => {
 exports.addProduct = async (req, res) => {
   try {
     const new_product = await Product.create(req.body);
-    console.log(new_product);
-
     res.send(200);
   } catch (err) {
     console.log(err);
     res.status(500);
   }
+};
+exports.getProduct = async (req, res) => {
+  const product = await Product.findOne({ _id: req.params.productid });
+  res.send(product);
+};
+
+exports.updateProduct = async (req, res) => {
+  const { _id, name, curr_price, old_price, images, category, tags, offer } =
+    req.body;
+  const updatedProduct = await Product.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      curr_price,
+      old_price,
+      images,
+      category,
+      tags,
+      offer,
+    },
+    { new: true }
+  );
+  if (!updatedProduct) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  return res.status(200).json(updatedProduct);
 };

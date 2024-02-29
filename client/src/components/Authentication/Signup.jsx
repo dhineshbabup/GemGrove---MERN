@@ -6,6 +6,7 @@ import {
   signupFormReducer,
 } from "../../assets/forms/login-signup";
 import axios from "axios";
+import logo from "../../assets/sample.png"
 
 const Signup = ({ img }) => {
   const [signupForm, dispatchSignup] = useReducer(
@@ -32,7 +33,7 @@ const Signup = ({ img }) => {
   };
   return (
     <div className={classes["signup"]}>
-      <img src="" alt="ddsds" />
+      <img src={logo} alt="logo" className={classes['login-logo']} />
       <h2>SignUp</h2>
       <div>
         <input
@@ -151,7 +152,7 @@ const Signup = ({ img }) => {
           {signupForm.confirm_passwordErr}*
         </span>
       </div>
-      <button onClick={signupFormHandler}>Signup</button>
+      <button className={classes['button']} onClick={signupFormHandler}>Signup</button>
       <p
         onClick={() => {
           img.current.style.right = "0%";

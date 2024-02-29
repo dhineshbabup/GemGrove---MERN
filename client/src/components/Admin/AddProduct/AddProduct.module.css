@@ -67,3 +67,20 @@
   outline: none;
   border-color: #866528;
 }
+.popup-cancel {
+  margin-left: 400px;
+  margin-top: 60px;
+  background: #c9002e;
+  width: 120px;
+  padding: 12px;
+  color: white !important;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.add-product-button {
+  color: white;
+  background: #c9002e;
+  margin: 12px 450px;
+  cursor: pointer;
+}

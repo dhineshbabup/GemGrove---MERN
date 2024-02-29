@@ -4,6 +4,8 @@ import { LiaEditSolid } from "react-icons/lia";
 import { MdOutlineDelete } from "react-icons/md";
 import Popup from "../Popup/Popup";
 import axios from "axios";
+import Button from "../../UI/Button";
+import { Link } from "react-router-dom";
 const DisplayProducts = (props) => {
   const [showPopup, setShowPopup] = useState(false);
   function handleShowPopup() {
@@ -25,19 +27,28 @@ const DisplayProducts = (props) => {
   return (
     <div className={classes["display-product"]}>
       {showPopup && (
-        <Popup
-          message={"Are you want to delete it?"}
-          alert={"Once you delete the product, you can't retrive it."}
-          handleShowPopup={handleShowPopup}
-          handleDelete={handleDelete}
-        />
+        <Popup>
+          <h2>Are you want to delete it?</h2>
+          <p>Once you delete the product, you can't retrive it.</p>
+          <div>
+            {/* <button className={} >
+              
+            </button> */}
+            <Button handleFunction={handleShowPopup} style={classes["cancel"]}>
+              Cancel
+            </Button>
+            <Button handleFunction={handleDelete}>Confirm</Button>
+          </div>
+        </Popup>
       )}
       <img src={props.img} alt="img" />
       <h2>{props.name}</h2>
-      <p>{props.price}</p>
+      <p>&#8377; {props.price}</p>
       {props.isEdit && (
         <>
-          <LiaEditSolid className={classes["product-edit"]} />
+          <Link to={`/editproduct/${props._id}`}>
+            <LiaEditSolid className={classes["product-edit"]} />
+          </Link>
           <MdOutlineDelete
             className={classes["product-edit"]}
             onClick={handleShowPopup}

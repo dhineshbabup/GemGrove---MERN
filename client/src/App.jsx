@@ -10,9 +10,19 @@ import Footer from "./components/Footer/Footer";
 import ShowProduct from "./Pages/ShowProduct";
 import Profile from "./components/Profile/Profile";
 import DashBoard from "./components/Admin/Dashboard/DashBoard";
+import NewArrival from "./components/Collections/New Arrival/NewArrival";
+import EditProduct from "./components/Admin/EditProduct/EditProduct";
 function App() {
   return (
     <BrowserRouter>
+      <>
+        <Routes>
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/editproduct" element={<EditProduct />}>
+            <Route path="/editproduct/:product" element={<EditProduct />} />
+          </Route>
+        </Routes>
+      </>
       <>
         {/* <Navbar /> */}
         <Routes>
@@ -28,12 +38,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<LoginSignup />} />
         </Routes>
-        {/* <Footer /> */}
-      </>
-      <>
-        <Routes>
-          <Route path="/dashboard" element={<DashBoard />} />
-        </Routes>
+        <Footer />
       </>
     </BrowserRouter>
   );

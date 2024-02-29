@@ -8,6 +8,11 @@
   text-transform: capitalize;
   justify-content: center;
 }
+.login-logo {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
 .log-sign {
   display: flex;
   border-radius: 12px;
@@ -49,24 +54,24 @@
 .login input::placeholder,
 .signup input::placeholder {
   text-transform: capitalize;
-
 }
 .login input:focus,
 .signup input:focus {
   outline: 1.3px solid #b09975;
 }
 .input-error {
-    border: 2px solid red;
+  border: 2px solid red;
 }
 .input {
-    border: 1px solid #b09975;
+  border: 1px solid #b09975;
 }
-.login span, .signup span{
-    color: red;
-    font-size: 12px;
-    font-weight: normal;
+.login span,
+.signup span {
+  color: red;
+  font-size: 12px;
+  font-weight: normal;
 }
-button {
+.button {
   width: 200px;
   padding: 8px 14px;
   border-radius: 12px;
@@ -86,7 +91,7 @@ button {
   text-decoration: underline;
   cursor: pointer;
 }
-.slide-animation{
+.slide-animation {
   position: absolute;
   width: 50%;
   height: 100%;
@@ -94,8 +99,8 @@ button {
   background: url("https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-position: center;
   background-size: cover;
-  top:0px;
-  right:0% ;
+  top: 0px;
+  right: 0%;
   transition: 0.4s;
   border-radius: 0 12px 12px 0;
 }

@@ -14,8 +14,8 @@ const LoginSignup = () => {
   return (
     <div className={classes["login-signin"]}>
       <div className={classes["log-sign"]}>
-        <Login img={img}/>
-        <Signup img={img}/>
+        <Login img={img} />
+        <Signup img={img} />
         <div
           ref={img}
           className={`

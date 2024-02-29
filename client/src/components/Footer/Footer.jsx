@@ -1,44 +1,55 @@
 import React from "react";
 import classes from "./Footer.module.css";
+
 const Footer = () => {
   return (
-    <div className={classes["footer"]}>
-      <div className={classes["footer-top"]}>
-        <div>
-          <h2>Logo</h2>
-          <h3>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-            culpa facilis minus ad maiores quas reiciendis quam dolor amet qui!
-          </h3>
-          <div></div>
+    <footer className={classes.footer}>
+      <div className={classes.footerTop}>
+        <div className={classes.footerLogo}>
+          <p>
+            GemGroove offers a stunning array of accessories for every style
+            enthusiast. From exquisite rings to captivating perfumes, our
+            collection embodies elegance and sophistication. Discover timeless
+            necklaces, luxurious watches, and chic glasses designed to elevate
+            your everyday look.
+          </p>
         </div>
-        <div>
-          <h2>SERVICES</h2>
-          <p>Treats Club</p>
-          <p>site map</p>
-        </div>
-        <div>
-          <h2>ABOUT</h2>
-          <p>Our Brand</p>
-          <p>Careers</p>
-        </div>
-        <div>
-          <h2>DELIVERY & RETURN</h2>
-          <p> Check Order</p>
-          <p>Delivery & Collection</p>
-          <p>Delivery Return</p>
-        </div>
-        <div>
-          <h2>CUSTOMER SERVICES</h2>
-          <p>Terms & Policies</p>
-          <p>Contact Us</p>
-          <p>Gift Cards</p>
+        <div className={classes.footerLinks}>
+          <div className={classes.footerSection}>
+            <h2>SERVICES</h2>
+            <ul>
+              <li>Treats Club</li>
+              <li>Site Map</li>
+            </ul>
+          </div>
+          <div className={classes.footerSection}>
+            <h2>ABOUT</h2>
+            <ul>
+              <li>Our Brand</li>
+              <li>Careers</li>
+            </ul>
+          </div>
+          <div className={classes.footerSection}>
+            <h2>DELIVERY & RETURN</h2>
+            <ul>
+              <li>Check Order</li>
+              <li>Delivery & Collection</li>
+              <li>Delivery Return</li>
+            </ul>
+          </div>
+          <div className={classes.footerSection}>
+            <h2>CUSTOMER SERVICES</h2>
+            <ul>
+              <li>Terms & Policies</li>
+              <li>Contact Us</li>
+              <li>Gift Cards</li>
+            </ul>
+          </div>
         </div>
       </div>
-
       <hr />
-      <p> &copy; GemGroove rights reserved </p>
-    </div>
+      <p>&copy; GemGroove. All rights reserved.</p>
+    </footer>
   );
 };
 

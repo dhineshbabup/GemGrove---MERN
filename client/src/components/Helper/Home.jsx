@@ -9,7 +9,7 @@ const Home = () => {
       <Dashboard />
       <Collections />
       <Offers />
-      {/* <NewArrival /> */}
+      <NewArrival />
     </div>
   );
 };

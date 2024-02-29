@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./Collections.module.css";
-import bottle from "../../assets/bottle.jpeg";
-import eyeGlass from "../../assets/glasses.jpeg";
-import handbag from "../../assets/handbags.jpeg";
-import ring from "../../assets/ring.jpeg";
-import watch from "../../assets/watch.jpeg";
+import bottle from "../../assets/bottle.jpg";
+import eyeGlass from "../../assets/glasses.jpg";
+import handbag from "../../assets/handbags.jpg";
+import ring from "../../assets/ring.jpg";
+import watch from "../../assets/watch.jpg";
 import { Link } from "react-router-dom";
-import necklace from "../../assets/necklace.jpeg";
+import necklace from "../../assets/necklace.jpg";
 const Collections = () => {
   return (
     <div className={classes.root}>

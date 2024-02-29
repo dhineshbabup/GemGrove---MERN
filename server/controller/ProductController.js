@@ -15,19 +15,22 @@ exports.searchProduct = async (req, res) => {
   res.status(200).json(products);
 };
 exports.getProduct = async (req, res) => {
-  console.log(req.params.productid);
   const product = await Product.findOne({ _id: req.params.productid });
   res.send(product);
 };
 
 exports.getProducts = async (req, res) => {
-  console.log(req.params.userId);
-  const cart = await Collection.findOne({_id: req.params.productid})
+  const cart = await Collection.findOne({ _id: req.params.productid });
   console.log(cart);
   res.send(cart);
-}
+};
 exports.getWishlist = async (req, res) => {
-  console.log(req.params.userId);
-  const wishlist = await Collection.findOne({_id: req.params.productid})
+  const wishlist = await Collection.findOne({ _id: req.params.productid });
   console.log(wishlist);
-}
+};
+exports.getNewArrival = async (req, res) => {
+  const newProducts = await Product.find({
+    createdAt: { $gte: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+  });
+  res.send(newProducts);
+};

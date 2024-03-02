@@ -5,8 +5,7 @@ import { VscClose } from "react-icons/vsc";
 import ShopContext from "../../context/Context";
 import axios from "axios";
 const Cart = () => {
-  const { cartItems, removeFromCart, setCartItems, addToCart } =
-    useContext(ShopContext);
+  const { cartItems, setCartItems, addToCart } = useContext(ShopContext);
   const { cookie } = useContext(ShopContext);
   let price = 0;
   let discount = Number(0);
@@ -31,25 +30,25 @@ const Cart = () => {
     if (!old_price || !curr_price) return;
     discount = Number(old_price - curr_price);
   };
-  useEffect(() => {
-  const addcart = async () => {
+
+  const removeFromCart = async (id) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/user/addtocart",
-        { cart: cartItems },
+      await axios.post(
+        "http://localhost:8000/user/removeFromCart",
+        { itemId: id },
         {
           headers: {
             key: cookie.key,
           },
         }
       );
-      console.log(response);
+      setCartItems((prevCartItems) =>
+        prevCartItems.filter((item) => item.id !== id)
+      );
     } catch (error) {
-      console.error("Error adding to cart:", error);
+      console.error("Error removing item from cart:", error);
     }
   };
-  addcart();
-}, [cartItems, cookie.key]);
 
   return (
     <div className={classes["cart"]}>
@@ -57,15 +56,17 @@ const Cart = () => {
         <h2>Shopping cart</h2>
         <div className={classes["cart-left-table"]}>
           <table>
-            <tr>
-              <th colSpan={2} className={classes["product-column"]}>
-                Product
-              </th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Sub Total</th>
-              <th>Remove</th>
-            </tr>
+            <thead>
+              <tr>
+                <th colSpan={2} className={classes["product-column"]}>
+                  Product
+                </th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Sub Total</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
             {cartItems && (
               <tbody>
                 {cartItems.map((p) => {

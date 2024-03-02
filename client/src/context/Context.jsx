@@ -15,7 +15,6 @@ export const ShopContextProvider = ({ children }) => {
       return p.length === 0 ? [...prev, item] : [...prev];
     });
   };
-  console.log(cartItems);
   const removeFromCart = (id) => {
     setCartItems(() => cartItems.filter((c) => c.id !== id));
   };
@@ -33,7 +32,6 @@ export const ShopContextProvider = ({ children }) => {
   };
   //wishlist
   const removeFromWishList = (id) => {
-    console.log(id);
     setWishList(() => wishList.filter((w) => w.id !== id));
   };
   const addToWishList = (item) => {
@@ -42,42 +40,106 @@ export const ShopContextProvider = ({ children }) => {
       return p.length === 0 ? [...prev, item] : [...prev];
     });
   };
-
   useEffect(() => {
-    const fetchCart = async () => {
-      if (cartItems.length === 0) {
-        const response = await axios.get("http://localhost:8000/user/getcart", {
-          headers: {
-            key: cookie.key,
-          },
-        });
-        console.log(response);
-        for (let i = 0; i < response.data.cart.length; i++) {
-          addToCart(response.data.cart[i]);
-        }
-      }
-    };
-    fetchCart();
-  }, [cookie.key, cartItems.length, addToCart]);
-
-  useEffect(() => {
-    const fetchWishList = async () => {
-      if (cartItems.length === 0) {
-        const response = await axios.get(
-          "http://localhost:8000/user/getwishlist",
+    const addcart = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/user/addtocart",
+          { cart: cartItems },
           {
             headers: {
               key: cookie.key,
             },
           }
         );
-        for (let i = 0; i < response.data.wishlist.length; i++) {
-          addToWishList(response.data.wishlist[i]);
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+      }
+    };
+    addcart();
+  }, [cartItems, cookie.key]);
+  // useEffect(() => {
+  //   const fetchCart = async () => {
+  //     if (cartItems.length === 0) {
+  //       const response = await axios.get("http://localhost:8000/user/getcart", {
+  //         headers: {
+  //           key: cookie.key,
+  //         },
+  //       });
+  //       for (let i = 0; i < response.data.cart.length; i++) {
+  //         addToCart(response.data.cart[i]);
+  //       }
+  //     }
+  //   };
+  //   fetchCart();
+  // }, [cookie.key, cartItems.length, addToCart]);
+
+  // useEffect(() => {
+  //   const fetchWishList = async () => {
+  //     if (cartItems.length === 0) {
+  //       const response = await axios.get(
+  //         "http://localhost:8000/user/getwishlist",
+  //         {
+  //           headers: {
+  //             key: cookie.key,
+  //           },
+  //         }
+  //       );
+  //       for (let i = 0; i < response.data.wishlist.length; i++) {
+  //         addToWishList(response.data.wishlist[i]);
+  //       }
+  //     }
+  //   };
+  //   fetchWishList();
+  // }, [cookie.key, wishList.length, addToWishList]);
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (cartItems.length === 0) {
+        try {
+          const response = await axios.get(
+            "http://localhost:8000/user/getcart",
+            {
+              headers: {
+                key: cookie.key,
+              },
+            }
+          );
+          for (let i = 0; i < response.data.cart.length; i++) {
+            addToCart(response.data.cart[i]);
+          }
+        } catch (error) {
+          console.error("Error fetching cart:", error);
         }
       }
     };
+
+    fetchCart();
+  }, [cookie.key, cartItems.length, addToCart]);
+
+  useEffect(() => {
+    const fetchWishList = async () => {
+      if (wishList.length === 0) {
+        try {
+          const response = await axios.get(
+            "http://localhost:8000/user/getwishlist",
+            {
+              headers: {
+                key: cookie.key,
+              },
+            }
+          );
+          for (let i = 0; i < response.data.wishlist.length; i++) {
+            addToWishList(response.data.wishlist[i]);
+          }
+        } catch (error) {
+          console.error("Error fetching wishlist:", error);
+        }
+      }
+    };
+
     fetchWishList();
   }, [cookie.key, wishList.length, addToWishList]);
+
   const contextValue = {
     addToCart,
     cartItems,

@@ -39,6 +39,7 @@
   padding: 1rem;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
+  overflow: scroll;
 }
 
 /* personal-info */
@@ -93,33 +94,66 @@
   display: flex;
   flex-direction: column;
 }
-.address-info {
-  overflow-x: scroll;
-  display: flex;
-}
-.address-info div {
-  width: 200px;
-  height: 200px;
+.address-info .add-address {
+  min-width: 200px;
+  min-height: 200px;
+
   border: 0.5px solid #866528;
-  margin: 24px 12px;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.address-info {
+  margin: 24px 12px;
+  display: flex;
+  gap: 20px;
+  min-width: 100%;
+}
 .addresses {
+  min-width: 200px;
+  position: relative;
+  min-height: 200px;
   background-color: #fff8eb;
   cursor: default !important;
+  padding: 6px;
+  overflow: scroll;
 }
-
+.addresses h4 {
+  font-weight: 500;
+  font-size: 18px;
+  color: #0077b6;
+  text-transform: uppercase;
+}
+.addresses aside {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0;
+  margin: 0;
+}
+.addresses aside p {
+  margin: 0px 8px;
+}
+.address-edit-buuton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
 /* address-form  */
 .address-form-backfrop {
   position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  z-index: 10;
+  min-height: 100vh;
   background: rgba(0, 0, 0, 0.58);
 }
 .address-form {
@@ -171,4 +205,12 @@
   font-size: 32px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+  align-self: self-start;
+  font-size: 14px;
+  font-weight: normal;
 }

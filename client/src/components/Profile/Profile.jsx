@@ -1,41 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Profile.module.css";
 import PersonalInfo from "./PersonalInfo";
 import Address from "./Address";
 import AddressForm from "./AddressForm";
 import axios from "axios";
+import ShopContext from "../../context/Context";
 const Profile = () => {
   const [info, setInfo] = useState("personal-info");
-  const [showAddress, setShowAddress] = useState(false);
-  const [editShowAddress, setEditShowAddress] = useState(false);
+  const { cookie, removeCookie } = useContext(ShopContext);
   const navigate = useNavigate();
   function handleInfo(data) {
     setInfo(data);
   }
-  function handleEditShowAddress() {
-    setEditShowAddress(!editShowAddress);
-  }
-  function handleShowAddress() {
-    setShowAddress(!showAddress);
-  }
+
   function logoutHandler() {
     localStorage.removeItem("token");
+    removeCookie("key");
+    removeCookie("role");
     navigate("/");
   }
-  // useEffect(() => {
-  //   const fetchAddress = async() => {
-  //     const response = await axios.get(`http://localhost:8000/user/getaddress/${}`);
-  //     console.log(response.data);
-  //   }
-  //   fetchAddress();
-  // },[])
+  const [user, setUser] = useState({});
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(
+        "http://localhost:8000/user/getusercredential",
+        {
+          headers: {
+            key: cookie.key,
+          },
+        }
+      );
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setMobile(response.data.mobile_no);
+      setAddress(response.data.address);
+      setUser(response.data);
+    };
+    fetchUser();
+  }, []);
+  function handleName(e) {
+    setName(e.target.value);
+  }
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+  function handleMobile(e) {
+    setMobile(e.target.value);
+  }
+  async function updatePersonalInfo() {
+    if (mobile.length !== 10) {
+      return alert("Mobile number should contain 10 numbers");
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/user/updatepersonalinfo",
+        {
+          name,
+          email,
+          mobile,
+        },
+        {
+          headers: {
+            key: cookie.key,
+          },
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div className={classes["profile"]}>
-      {showAddress && <AddressForm handleShowAddress={handleShowAddress} />}
-      {editShowAddress && (
-        <AddressForm handleEditShowAddress={handleEditShowAddress} />
-      )}
       <div className={classes["profile-left"]}>
         <h2>My account</h2>
         <div className={classes["profile-left-content"]}>
@@ -49,11 +90,18 @@ const Profile = () => {
       </div>
       <div className={classes["profile-right"]}>
         {info === "personal-info" ? (
-          <PersonalInfo />
+          <PersonalInfo
+            name={name}
+            email={email}
+            mobile={mobile}
+            handleName={handleName}
+            handleEmail={handleEmail}
+            handleMobile={handleMobile}
+            updatePersonalInfo={updatePersonalInfo}
+          />
         ) : info === "address" ? (
           <Address
-            handleShowAddress={handleShowAddress}
-            handleEditShowAddress={handleEditShowAddress}
+            address={address}
           />
         ) : (
           ""

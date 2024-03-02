@@ -28,7 +28,7 @@ const user = new mongoose.Schema({
       name: String,
       mobile_no: String,
       door_no: String,
-      street_name: String,
+      street: String,
       pincode: Number,
       city: String,
       state: String,

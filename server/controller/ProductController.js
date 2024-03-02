@@ -52,14 +52,17 @@ exports.getWishlist = async (req, res) => {
 exports.addToCart = async (req, res) => {
   const { cart } = req.body;
 
-  // Check if cart is undefined or empty
   if (!cart || cart.length === 0) {
-    return res.status(400).json({ message: "Cart data is missing or empty" });
+    return res.status(200);
   }
 
-  const userCollection = await Collection.findOne({ user_Id: req.id });
+  var userCollection = await Collection.findOne({ user_Id: req.id });
   if (!userCollection) {
-    return res.status(404).json({ message: "Collection not found" });
+    userCollection = new Collection({
+      user_Id: req.id,
+      wishlist: [],
+      cart: [],
+    });
   }
   for (let i = 0; i < cart.length; i++) {
     const newItem = cart[i];
@@ -82,9 +85,13 @@ exports.addToCart = async (req, res) => {
 
 exports.addToWishlist = async (req, res) => {
   const { wishlist } = req.body;
-  const userCollection = await Collection.findOne({ user_Id: req.id });
+  var userCollection = await Collection.findOne({ user_Id: req.id });
   if (!userCollection) {
-    return res.status(404).json({ message: "Collection not found" });
+    userCollection = new Collection({
+      user_Id: req.id,
+      wishlist: [],
+      cart: [],
+    });
   }
   for (let i = 0; i < wishlist.length; i++) {
     const newItem = wishlist[i];
@@ -104,3 +111,87 @@ exports.addToWishlist = async (req, res) => {
   await userCollection.save();
   res.status(200).json({ message: "Cart updated successfully" });
 };
+
+exports.removeFromCart = async (req, res) => {
+  const { itemId } = req.body;
+  const userId = req.id;
+
+  try {
+    let userCollection = await Collection.findOne({ user_Id: userId });
+
+    if (!userCollection) {
+      return res.status(404).json({ message: "Collection not found" });
+    }
+    userCollection.cart = userCollection.cart.filter(
+      (item) => item.id !== itemId
+    );
+    await userCollection.save();
+
+    res.status(200).json({ message: "Item removed from cart successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.removeFromWishList = async (req, res) => {
+  const { itemId } = req.body;
+  const userId = req.id;
+  try {
+    let userCollection = await Collection.findOne({ user_Id: userId });
+
+    if (!userCollection) {
+      return res.status(404).json({ message: "Collection not found" });
+    }
+    userCollection.wishlist = userCollection.wishlist.filter(
+      (item) => item.id !== itemId
+    );
+    await userCollection.save();
+
+    res.status(200).json({ message: "Item removed from cart successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.getUserCredential = async (req, res) => {
+  const user = await User.findOne({ _id: req.id });
+  res.send(user);
+};
+exports.updatePersonalInfo = async (req, res) => {
+  const { name, email, mobile } = req.body;
+  const user = await User.findById(req.id);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  // if(mobile.length !== 10) retu
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (mobile) user.mobile_no = mobile;
+
+  await user.save();
+
+  return res.status(200).json(user);
+};
+
+
+exports.addAddress = async (req, res) => {
+  try {
+    const { addressInfo } = req.body;
+
+    const user = await User.findById(req.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    user.address.push(addressInfo);
+
+    await user.save();
+
+    res.status(200).json({ message: 'Address saved successfully' });
+  } catch (error) {
+    console.error('Error saving address:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

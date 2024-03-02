@@ -9,7 +9,12 @@ const {
   getNewArrival,
   getCart,
   addToCart,
-  addToWishlist
+  addToWishlist,
+  removeFromWishList,
+  removeFromCart,
+  getUserCredential,
+  updatePersonalInfo,
+  addAddress,
   // getAddress,
 } = require("../controller/ProductController");
 const auth = require("./validate");
@@ -26,5 +31,9 @@ router.route("/getcart").get(auth, getCart);
 router.route("/addtocart").post(auth, addToCart);
 router.route("/getwishlist").get(auth, getWishlist);
 router.route("/addtowishlist").post(auth, addToWishlist);
-
+router.route("/removefromcart").post(auth, removeFromCart);
+router.route("/removefromwishList").post(auth, removeFromWishList);
+router.route("/getusercredential").get(auth, getUserCredential)
+router.route("/updatepersonalinfo").post(auth, updatePersonalInfo)
+router.route("/addaddress").post(auth, addAddress);
 module.exports = router;

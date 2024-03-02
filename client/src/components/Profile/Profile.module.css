@@ -9,15 +9,18 @@
 .profile-left {
   background: #f7f7f7;
   width: 20%;
-  height: 50%;
+  height: 60%;
+  padding: 1rem;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 .profile-left h2 {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: bold;
   margin: 12px 8px;
 }
 .profile-left-content p {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: normal;
   margin: 14px 12px;
   cursor: pointer;
@@ -31,8 +34,11 @@
 .profile-right {
   background: #f7f7f7;
   width: 50%;
-  height: 50%;
+  height: 60%;
   margin-left: 15px;
+  padding: 1rem;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 /* personal-info */
@@ -54,8 +60,8 @@
 .address p {
   text-align: center;
   font-size: 14px;
-  font-weight: 500;
-  margin: 8px;
+  font-weight: 400;
+  margin: 8px 12px 12px;
 }
 .personal-info-form {
   display: flex;
@@ -75,7 +81,7 @@
   color: gray;
   font-size: 14px;
 }
-.personal-info-form button {
+.personal-info-form-button {
   background: #c9002e;
   color: #f7f7f7;
   margin: 12px auto;
@@ -113,17 +119,18 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 120vh;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.58);
 }
 .address-form {
   position: absolute;
-  top: 20%;
+  top: 10%;
   width: 35%;
   padding: 18px;
   height: auto;
   display: flex;
   flex-direction: column;
+  border-radius: 12px;
   margin: 12px;
   background: #f7f7f7;
 }
@@ -145,7 +152,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.address-forms button {
+.address-forms-button {
   background: #c9002e;
   margin: 12px auto;
   color: white;

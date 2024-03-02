@@ -31,9 +31,6 @@ const DisplayProducts = (props) => {
           <h2>Are you want to delete it?</h2>
           <p>Once you delete the product, you can't retrive it.</p>
           <div>
-            {/* <button className={} >
-              
-            </button> */}
             <Button handleFunction={handleShowPopup} style={classes["cancel"]}>
               Cancel
             </Button>

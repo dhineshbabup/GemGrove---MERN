@@ -1,8 +1,11 @@
 const Product = require("../DB/model/product");
 
 exports.getAllProducts = async (req, res) => {
-  const product = await Product.find({});
-  res.json(product);
+  if (req.isAdmin) {
+    const product = await Product.find({});
+    return res.json(product);
+  }
+  res.status(401).json({ message: "you don't have the access for see it." });
 };
 
 exports.deleteProduct = async (req, res) => {

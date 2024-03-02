@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductDisplay from "../components/UI/ProductDisplay";
 import axios from "axios";
 import classes from "./ShowProduct.module.css";
 import { useParams } from "react-router";
 import Dropdown from "./Dropdown";
+import ShopContext from "../context/Context";
 const ShowProduct = (props) => {
+  const { cookie } = useContext(ShopContext);
   const { category } = useParams();
   const [showProduct, setShowProduct] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/user/product/${category}`
+          `http://localhost:8000/user/product/${category}`,
+          {
+            headers: {
+              key: cookie.key,
+            },
+          }
         );
-
         setShowProduct(res.data);
       } catch (err) {
-        console.log("fetching error");
+        console.log("fetching error" + err);
       }
     };
     fetchProducts();

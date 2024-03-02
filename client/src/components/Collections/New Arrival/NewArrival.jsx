@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./NewArrival.module.css";
 import ProductDisplay from "../../UI/ProductDisplay";
 import axios from "axios";
@@ -9,19 +9,18 @@ const NewArrival = () => {
       const response = await axios.get(
         "http://localhost:8000/user/getnewarrival"
       );
-      console.log(response.data);
       setNewArrival(response.data);
     };
     fetchData();
   });
-  console.log(newArrival);
   return (
     <div className={classes.new}>
       <h2>New Arrival</h2>
-      <div className={classes.con} key={"12"}>
+      <div className={classes.con}>
         {newArrival.map((s) => {
           return (
             <ProductDisplay
+              key={s._id}
               id={s._id}
               img={s.images.img1}
               offer={s.offer}

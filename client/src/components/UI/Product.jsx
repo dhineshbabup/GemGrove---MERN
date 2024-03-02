@@ -8,7 +8,7 @@ import ColorChooser from "../../Pages/ColorChooser";
 import Cookies from "js-cookie";
 const Product = () => {
   const { productId } = useParams();
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, cookie } = useContext(ShopContext);
   const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [image, setImage] = useState("");
@@ -37,15 +37,16 @@ const Product = () => {
     addToCart(product);
   };
   const addCart = (p) => {
+    console.log(p);
     const pr = {
       id: p._id,
       offer: p.offer,
       tag: p.tags,
-      img: p.images[0].img1,
+      img: p.images.img1,
       old_price: p.old_price,
       curr_price: p.curr_price,
       name: p.name,
-      quantity: 1,
+      quantity: quantity,
     };
     addToCart(pr);
   };
@@ -141,7 +142,7 @@ const Product = () => {
             <div className={classes["card-button"]}>
               <button
                 onClick={() =>
-                  Cookies.get("token") ? addToCart(product) : navigate("/login")
+                  cookie.key ? addCart(product) : navigate("/login")
                 }
               >
                 Add to cart
@@ -151,7 +152,7 @@ const Product = () => {
           <div className={classes["buy-button"]}>
             <button
               onClick={() => {
-                Cookies.get("token") ? addCart(product) : navigate("/login");
+                cookie.key ? addCart(product) : navigate("/login");
               }}
             >
               Buy Now

@@ -5,6 +5,11 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding: 14px;
   margin: 8px 0;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.display-product:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .display-product img {
   width: 100%;
@@ -28,7 +33,7 @@
 .fetch-product {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 25px;
 }
 .product-edit {
   font-size: 18px;

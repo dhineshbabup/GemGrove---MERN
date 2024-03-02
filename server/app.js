@@ -5,6 +5,7 @@ const path = require('path');
 const user_routes = require('./routes/user_routes')
 const admin_routes = require('./routes/admin_routes')
 const authRoute = require("./routes/auth")
+const auth = require('./routes/auth');
 const connectDatabase = require('./DB/db_connection')
 const cookie = require('cookie-parser')
 const cors = require('cors');
@@ -16,7 +17,7 @@ app.use(cookie())
 app.use(cors())
 app.use(express.json());
 app.use("/user", user_routes);
-app.use("/admin",admin_routes)
+app.use("/admin", admin_routes)
 app.use(authRoute)
 
 app.listen(process.env.PORT,() => console.log(`Server running at ${process.env.PORT}`));

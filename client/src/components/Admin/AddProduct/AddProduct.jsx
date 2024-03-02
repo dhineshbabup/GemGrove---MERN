@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import classes from "./AddProduct.module.css";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import Model from "../Popup/Model";
 import Button from "../../UI/Button";
+import ShopContext from "../../../context/Context";
 const AddProduct = () => {
+  const {cookie} = useContext(ShopContext);
   const [name, setName] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
   const [oldPrice, setOldPrice] = useState("");
@@ -54,6 +56,11 @@ const AddProduct = () => {
           category,
           tags,
           offer,
+        },
+        {
+          headers: {
+            key: Cookie.key,
+          },
         }
       );
       if (response.status === 200) {

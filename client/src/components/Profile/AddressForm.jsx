@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import classes from "./Profile.module.css";
 import { IoIosClose } from "react-icons/io";
-const AddressForm = ({handleShowAddress}) => {
+import Button from "../UI/Button";
+const AddressForm = ({ handleShowAddress }) => {
   const [place, setPlace] = useState("");
   const handlePlaceChange = (event) => {
     setPlace(event.target.value);
@@ -9,11 +10,14 @@ const AddressForm = ({handleShowAddress}) => {
   return (
     <div className={classes["address-form-backfrop"]}>
       <div className={classes["address-form"]}>
-        <div className={classes['address-form-heading']}>
+        <div className={classes["address-form-heading"]}>
           <h2>Add new address</h2>
-          <IoIosClose onClick={handleShowAddress} className={classes['close']}/>
+          <IoIosClose
+            onClick={handleShowAddress}
+            className={classes["close"]}
+          />
         </div>
-        <div className={classes['address-forms']}>
+        <div className={classes["address-forms"]}>
           <label htmlFor="">Name</label>
           <input type="text" />
           <label htmlFor="">Mobile number</label>
@@ -46,7 +50,7 @@ const AddressForm = ({handleShowAddress}) => {
             />
             Office
           </label>
-          <button>Save Address</button>
+          <Button style={classes["address-forms-button"]}>Save Address</Button>
         </div>
       </div>
     </div>

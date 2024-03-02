@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useContext, useReducer, useRef, useState } from "react";
 import classes from "./LoginSignup.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -6,8 +6,10 @@ import {
   initialLoginForm,
 } from "../../assets/forms/login-signup";
 import axios from "axios";
-import logo from "../../assets/sample.png"
+import logo from "../../assets/sample.png";
+import ShopContext from "../../context/Context";
 const Login = ({ img }) => {
+  const { cookie, setCookie, removeCookie } = useContext(ShopContext);
   const [loginForm, dispatchLogin] = useReducer(
     loginFormReducer,
     initialLoginForm
@@ -44,7 +46,10 @@ const Login = ({ img }) => {
     console.log(response);
     if (response.data.status) {
       localStorage.setItem("token", [response.data.token, response.data.email]);
+      setCookie("key", response.data.token);
+      setCookie("role", response.data.role);
       if (response.data.role === true) {
+        navigate("/dashboard");
       } else {
         navigate("/");
       }
@@ -52,7 +57,7 @@ const Login = ({ img }) => {
   };
   return (
     <div className={classes["login"]}>
-      <img src={logo} alt="logo" className={classes['login-logo']}/>
+      <img src={logo} alt="logo" className={classes["login-logo"]} />
       <h2>Login</h2>
       <div>
         <input
@@ -104,7 +109,9 @@ const Login = ({ img }) => {
           {loginForm.passErrMsg}*
         </span>
       </div>
-      <button className={classes['button']} onClick={loginFormHandler}>Login</button>
+      <button className={classes["button"]} onClick={loginFormHandler}>
+        Login
+      </button>
       <Link className={classes["forgot"]}>Forgot password ?</Link>
       <p
         onClick={() => {

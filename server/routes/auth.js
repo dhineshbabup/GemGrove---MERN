@@ -30,8 +30,7 @@ router.post("/login", async (req, res) => {
   if (!result) {
     return res.status(400).send("Password mismatch");
   } else {
-    const token = getToken(user.email);
-    // res.cookie("token", token);
+    const token = getToken(user.email, user.isAdmin, user._id);
     res.cookie("token", token, { httpOnly: true });
     res.json({
       status: "success",

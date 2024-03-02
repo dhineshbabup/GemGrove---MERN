@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classes from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { VscClose } from "react-icons/vsc";
 import ShopContext from "../../context/Context";
+import axios from "axios";
 const Cart = () => {
-  const { cartItems, removeFromCart, setCartItems } = useContext(ShopContext);
+  const { cartItems, removeFromCart, setCartItems, addToCart } =
+    useContext(ShopContext);
+  const { cookie } = useContext(ShopContext);
   let price = 0;
   let discount = Number(0);
   let total_price = 0;
-  console.log(cartItems);
   const increaseQuantity = (id, Newquantity) => {
     setCartItems((prev) =>
       prev.map((item) =>
@@ -29,10 +31,29 @@ const Cart = () => {
     if (!old_price || !curr_price) return;
     discount = Number(old_price - curr_price);
   };
+  useEffect(() => {
+  const addcart = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/user/addtocart",
+        { cart: cartItems },
+        {
+          headers: {
+            key: cookie.key,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+  addcart();
+}, [cartItems, cookie.key]);
+
   return (
     <div className={classes["cart"]}>
       <div className={classes["cart-left"]}>
-        
         <h2>Shopping cart</h2>
         <div className={classes["cart-left-table"]}>
           <table>

@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import classes from "./EditProduct.module.css";
 import Button from "../../UI/Button";
 import Model from "../Popup/Model";
+import ShopContext from "../../../context/Context";
 const EditProduct = () => {
+  const { cookie } = useContext(ShopContext);
   const { product } = useParams();
   const updateRef = useRef();
   const [name, setName] = useState("");
@@ -34,8 +36,14 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/admin/getproduct/${product}`
+          `http://localhost:8000/admin/getproduct/${product}`,
+          {
+            headers: {
+              key: cookie.key,
+            },
+          }
         );
+        console.log(response);
         const productData = response.data;
 
         setName(productData.name || "");

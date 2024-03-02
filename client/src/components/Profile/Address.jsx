@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Profile.module.css";
 import { MdOutlineLocationOn } from "react-icons/md";
 
-const Address = ({ handleShowAddress }) => {
+const Address = ({ handleShowAddress, handleEditShowAddress }) => {
   return (
     <div className={classes["address"]}>
       <h2>Address Book</h2>

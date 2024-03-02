@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import classes from "./ProductDisplay.module.css";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { FiHeart } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import ShopContext from "../../context/Context";
-import Cookie from "js-cookie";
+import axios from "axios";
 const ProductDisplay = (props) => {
-  const { addToCart, addToWishList } = useContext(ShopContext);
+  const { addToCart, addToWishList, cookie, wishList } =
+    useContext(ShopContext);
   const navigate = useNavigate();
   const addWish = (p) => {
     console.log(p);
@@ -22,18 +23,29 @@ const ProductDisplay = (props) => {
     };
     addToWishList(pr);
   };
-  const token = localStorage.getItem('token')
+  useEffect(() => {
+    const addWishlist = async () => {
+      const response = await axios.post(
+        "http://localhost:8000/user/addtowishlist",
+        { wishlist: wishList },
+        {
+          headers: {
+            key: cookie.key,
+          },
+        }
+      );
+    };
+    addWishlist();
+  }, [wishList]);
   return (
-    <div className={classes.products} key={props.id}>
+    <div className={classes.products}>
       <div className={classes.product} key={props.id}>
         <Link to={`/product/${props.id}`}>
           <img src={props.img} alt="drive" />
         </Link>
         <button
           className={classes.button}
-          onClick={() =>
-            token ? addToCart(props) : navigate("/login")
-          }
+          onClick={() => (cookie.key ? addToCart(props) : navigate("/login"))}
         >
           Add to cart
         </button>
@@ -43,7 +55,9 @@ const ProductDisplay = (props) => {
         </div>
         <div className={classes.left}>
           <FiHeart
-            onClick={() => addToWishList(props)}
+            onClick={() => {
+              addToWishList(props);
+            }}
             className={classes.icons}
           />
           <RiShoppingCartLine className={classes.icons} />

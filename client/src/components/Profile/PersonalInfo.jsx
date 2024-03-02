@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Profile.module.css";
+import Button from "../UI/Button";
 const PersonalInfo = () => {
   return (
     <div className={classes["personal-info"]}>
@@ -15,7 +16,7 @@ const PersonalInfo = () => {
         <input type="email" />
         <label htmlFor="">Mobile_no</label>
         <input type="text" />
-        <button>Update</button>
+        <Button style={classes['personal-info-form-button']}>Update</Button>
       </div>
     </div>
   );

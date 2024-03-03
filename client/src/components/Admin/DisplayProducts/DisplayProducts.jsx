@@ -25,7 +25,7 @@ const DisplayProducts = (props) => {
   }
 
   return (
-    <div className={classes["display-product"]}>
+    <>
       {showPopup && (
         <Popup>
           <h2>Are you want to delete it?</h2>
@@ -38,21 +38,23 @@ const DisplayProducts = (props) => {
           </div>
         </Popup>
       )}
-      <img src={props.img} alt="img" />
-      <h2>{props.name}</h2>
-      <p>&#8377; {props.price}</p>
-      {props.isEdit && (
-        <>
-          <Link to={`/editproduct/${props._id}`}>
-            <LiaEditSolid className={classes["product-edit"]} />
-          </Link>
-          <MdOutlineDelete
-            className={classes["product-edit"]}
-            onClick={handleShowPopup}
-          />
-        </>
-      )}
-    </div>
+      <div className={classes["display-product"]}>
+        <img src={props.img} alt="img" />
+        <h2>{props.name}</h2>
+        <p>&#8377; {props.price}</p>
+        {props.isEdit && (
+          <>
+            <Link to={`/editproduct/${props._id}`}>
+              <LiaEditSolid className={classes["product-edit"]} />
+            </Link>
+            <MdOutlineDelete
+              className={classes["product-edit"]}
+              onClick={handleShowPopup}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

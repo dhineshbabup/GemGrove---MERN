@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./DashBoard.module.css";
 import FetchProduct from "../DisplayProducts/FetchProduct";
 import AddProduct from "../AddProduct/AddProduct";
 import Button from "../../UI/Button";
+import ShopContext from "../../../context/Context";
+import { useNavigate } from "react-router";
 const DashBoard = () => {
+  const { removeCookie } = useContext(ShopContext);
+  const navigate = useNavigate();
   const [adminControl, setAdminControl] = useState("dash");
   function handleAdminControl(dash) {
     setAdminControl(dash);
+  }
+  function handleLogout() {
+    removeCookie("key");
+    removeCookie("role");
+    navigate("/");
   }
   return (
     <div className={classes["dashboard"]}>
@@ -29,6 +38,9 @@ const DashBoard = () => {
           onClick={() => handleAdminControl("edit-product")}
         >
           Edit Product
+        </p>
+        <p className={classes["dash-para"]} onClick={() => handleLogout()}>
+          Logout
         </p>
       </div>
       <div className={classes["dashboard-left"]}>

@@ -39,6 +39,7 @@ function App() {
     <>
       {CURRENT_USER_TYPE !== USER_TYPES.ADMIN ? <Navbar /> : ""}
       <Routes>
+
         <Route
           path="/dashboard"
           element={
@@ -133,7 +134,9 @@ function App() {
             </UserRoute>
           }
         />
+
         <Route path="/login" element={<LoginSignup />} />
+        <Route path="*" element={<NoMatch />} />
       </Routes>
       {CURRENT_USER_TYPE !== USER_TYPES.ADMIN ? <Footer /> : ""}
     </>
@@ -158,6 +161,9 @@ function App() {
     }
     return <>Page Not found</>;
   }
+}
+function NoMatch() {
+  return <div>Page Not found</div>;
 }
 
 export default App;

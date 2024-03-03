@@ -45,7 +45,6 @@ const Login = ({ img }) => {
     });
     console.log(response);
     if (response.data.status) {
-      localStorage.setItem("token", [response.data.token, response.data.email]);
       setCookie("key", response.data.token);
       setCookie("role", response.data.role);
       if (response.data.role === true) {

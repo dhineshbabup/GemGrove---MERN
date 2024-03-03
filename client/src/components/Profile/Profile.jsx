@@ -25,6 +25,8 @@ const Profile = () => {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get(
@@ -42,7 +44,7 @@ const Profile = () => {
       setUser(response.data);
     };
     fetchUser();
-  }, []);
+  }, [address]);
   function handleName(e) {
     setName(e.target.value);
   }
@@ -51,6 +53,9 @@ const Profile = () => {
   }
   function handleMobile(e) {
     setMobile(e.target.value);
+  }
+  function handlePopup() {
+    setShowPopup(!showPopup)
   }
   async function updatePersonalInfo() {
     if (mobile.length !== 10) {
@@ -70,7 +75,9 @@ const Profile = () => {
           },
         }
       );
-      console.log(response);
+      if(response.status === 200) {
+        handlePopup();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -98,6 +105,8 @@ const Profile = () => {
             handleEmail={handleEmail}
             handleMobile={handleMobile}
             updatePersonalInfo={updatePersonalInfo}
+            showPopup={showPopup}
+            handlePopup={handlePopup}
           />
         ) : info === "address" ? (
           <Address

@@ -15,6 +15,7 @@ const {
   getUserCredential,
   updatePersonalInfo,
   addAddress,
+  deleteAddress
   // getAddress,
 } = require("../controller/ProductController");
 const auth = require("./validate");
@@ -36,4 +37,5 @@ router.route("/removefromwishList").post(auth, removeFromWishList);
 router.route("/getusercredential").get(auth, getUserCredential)
 router.route("/updatepersonalinfo").post(auth, updatePersonalInfo)
 router.route("/addaddress").post(auth, addAddress);
+router.route("/deleteaddress").post(auth, deleteAddress);
 module.exports = router;

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import classes from "./Profile.module.css";
 import Button from "../UI/Button";
+import Popup from "../Admin/Popup/Popup";
 const PersonalInfo = ({
   name,
   email,
   mobile,
+  showPopup,
   handleName,
   handleMobile,
   handleEmail,
+  handlePopup,
   updatePersonalInfo,
 }) => {
   const [nameError, setNameError] = useState("");
@@ -34,6 +37,14 @@ const PersonalInfo = ({
 
   return (
     <div className={classes["personal-info"]}>
+      {showPopup && (
+        <Popup>
+          <h2>Information updated.</h2>
+          <Button style={classes["popup-cancel"]} handleFunction={handlePopup}>
+            Close
+          </Button>
+        </Popup>
+      )}
       <h2>Personal Information</h2>
       <p>
         Hey there! Fill in your details for a personalized GEMGROOVE shopping

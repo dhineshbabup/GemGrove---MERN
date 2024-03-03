@@ -3,7 +3,7 @@ import classes from "./Profile.module.css";
 import { MdOutlineLocationOn } from "react-icons/md";
 import AddressForm from "./AddressForm";
 import ShopContext from "../../context/Context";
-import { TbEdit } from "react-icons/tb";
+import { AiTwotoneDelete } from "react-icons/ai";
 import axios from "axios";
 const Address = ({ address }) => {
   const [name, setName] = useState("");
@@ -64,7 +64,18 @@ const Address = ({ address }) => {
       console.log(err);
     }
   };
-  console.log(address);
+  async function handleDeleteAddress(_id) {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/user/deleteaddress",
+        { _id: _id },
+        { headers: { key: cookie.key } }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div className={classes["address"]}>
       {showAddress && (
@@ -104,8 +115,9 @@ const Address = ({ address }) => {
         </div>
         {address &&
           address.map((a) => {
+            console.log(a);
             return (
-              <div className={classes["addresses"]} key={a.door_no}>
+              <div className={classes["addresses"]} key={a._id}>
                 <h4>{a.name}</h4>
                 <aside>
                   <p>{a.mobile_no},</p>
@@ -117,7 +129,10 @@ const Address = ({ address }) => {
                   <p>{a.state},</p>
                   <p>{a.place}.</p>
                 </aside>
-                <TbEdit className={classes['address-edit-buuton']} onClick={handleEditShowAddress}/>
+                <AiTwotoneDelete
+                  className={classes["address-delete-buuton"]}
+                  onClick={() => handleDeleteAddress(a._id)}
+                />
               </div>
             );
           })}

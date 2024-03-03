@@ -175,7 +175,6 @@ exports.updatePersonalInfo = async (req, res) => {
   return res.status(200).json(user);
 };
 
-
 exports.addAddress = async (req, res) => {
   try {
     const { addressInfo } = req.body;
@@ -183,15 +182,37 @@ exports.addAddress = async (req, res) => {
     const user = await User.findById(req.id);
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
     user.address.push(addressInfo);
 
     await user.save();
 
-    res.status(200).json({ message: 'Address saved successfully' });
+    res.status(200).json({ message: "Address saved successfully" });
   } catch (error) {
-    console.error('Error saving address:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error saving address:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
+};
+exports.deleteAddress = async (req, res) => {
+  const { _id } = req.body;
+  
+  try {
+    const user = await User.findById(req.id);
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    // Filter out the address with the specified _id
+    user.address = user.address.filter(address => address._id != _id);
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).send(user);
+  } catch (error) {
+    console.error('Error deleting address:', error);
+    res.status(500).send({ error: 'Internal server error' });
+  }
+};
+

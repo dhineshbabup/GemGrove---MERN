@@ -9,7 +9,7 @@ import { BsPersonFill } from "react-icons/bs";
 
 const Navbar = () => {
   const [showNavabr, setShowNavbar] = useState(false);
-  const { cartItemsLength } = useContext(ShopContext);
+  const { cartItemsLength, cookie } = useContext(ShopContext);
   const user = localStorage.getItem("token");
   return (
     <div className={classes.navbar}>
@@ -43,7 +43,7 @@ const Navbar = () => {
             <div className={classes.patch}>{cartItemsLength}</div>
           </div>
           <div className={classes["nav-item-icon"]}>
-            {user ?
+            {cookie.key ?
             <Link to="/profile">
               <BsPersonFill className={classes["nav-item"]} />
             </Link>
